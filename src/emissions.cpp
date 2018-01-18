@@ -10,6 +10,7 @@ double TotalSupply = (double) 120000000.0;
 double EmissionFactor; 
 double BlockReward;
 double CirculatingSupply = 0.0;
+int ThisMonth;
 int i;
 
 
@@ -19,12 +20,16 @@ int main () {
 
     EmissionFactor = pow( (double) 2.0 , (double) - EmissionSpeed );
     CirculatingSupply = InitialCirculatingSupply;
-    cout << "block" << "," << "Reward" << "," << "CirculatingSupply"  << " \n";
+    cout <<  "Month,Block,Reward,CirculatingSupply\n";
     for (i = 1; i < 13149001; i++) {
         BlockReward =  ( TotalSupply - CirculatingSupply ) * EmissionFactor;
+        if ( BlockReward < 6.5) {
+	    BlockReward = 6.5;
+	}
 	CirculatingSupply += BlockReward;
-	if ((i % 262980) == 0) {
-            cout << i << "," << BlockReward << "," << CirculatingSupply  << " \n";
+	if ((i % 21915) == 0) {
+            ThisMonth = i / 21915;
+            cout << ThisMonth << "," << i << "," << BlockReward << "," << CirculatingSupply  << " \n";
         }
     }
 }
